@@ -97,9 +97,10 @@ export class StickersUI {
       width: 800,
       height: 600,
       show: false,
+      hideOnDeactivate: UI_MODE == 'cover',
       alwaysOnTop: UI_MODE == 'palette',
-      frame: UI_MODE == 'palette',
-      hasShadow: UI_MODE == 'palette',
+      frame: UI_MODE == 'cover',
+      hasShadow: UI_MODE == 'cover',
       acceptsFirstMouse: true,
     });
 
@@ -113,20 +114,21 @@ export class StickersUI {
 
     this.browserWindow.on('blur', () => {
       if (UI_MODE == 'cover') {
-        this.browserWindow.close();
+        // this.browserWindow.close();
+        console.log(UI_MODE);
       }
     });
 
     if (UI_MODE == 'cover') {
-      this.browserWindow.setResizable(false);
+      this.browserWindow.setResizable(true);
       this.browserWindow._panel.setFrame_display_animate_(docWindow.frame(), false, false);
       this.browserWindow._panel.setHidesOnDeactivate(false);
     }
     this.browserWindow.once('ready-to-show', () => {
       this.browserWindow.show();
-      if (UI_MODE == 'cover') {
-        docWindow.addChildWindow_ordered_(this.browserWindow._panel, NSWindowAbove);
-      }
+      // if (UI_MODE == 'cover') {
+      //   docWindow.addChildWindow_ordered_(this.browserWindow._panel, NSWindowAbove);
+      // }
     });
 
     this.browserWindow.loadURL(String(
@@ -186,9 +188,9 @@ export class StickersUI {
         log(e.message);
         log(e);
       }
-      if (UI_MODE == 'cover') {
-        this.browserWindow.close();
-      }
+      // if (UI_MODE == 'cover') {
+      //   this.browserWindow.close();
+      // }
     });
 
     // add a handler for a call from web content's javascript

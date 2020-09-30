@@ -209,6 +209,7 @@ export function getPluginCachePath() {
   let cachePath = String(NSFileManager.defaultManager().URLsForDirectory_inDomains_(
       NSCachesDirectory,
       NSUserDomainMask)[0].path());
+      console.log(cachePath);
   let pluginCacheKey = String(__command.pluginBundle().identifier()); // TODO: escape if needed
   return path.join(cachePath, pluginCacheKey);
 }
